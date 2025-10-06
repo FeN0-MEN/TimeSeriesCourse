@@ -25,6 +25,14 @@ def brute_force(ts: np.ndarray, query: np.ndarray, is_normalize: bool = True) ->
 
     dist_profile = np.zeros(shape=(N,))
 
-    # INSERT YOUR CODE
+    # Normalization
+    if is_normalize:
+        query = (query - np.mean(query)) / np.std(query)
+
+    for i in range(N):
+        window = ts[i:i+m]
+        if is_normalize:
+            window = (window - np.mean(window)) / np.std(window)
+        dist_profile[i] = np.linalg.norm(window - query)
 
     return dist_profile
